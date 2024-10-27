@@ -3,521 +3,131 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portfolio - Justin Venon</title>
+    <title>Chat en Ligne</title>
+    <link href="https://fonts.googleapis.com/css2?family=Segoe+UI:wght@400&display=swap" rel="stylesheet">
     <style>
-
-        /* Initial Reset */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Roboto', sans-serif;
-            scroll-behavior: smooth;
-        }
-
-        /* Color Themes */
-        :root {
-            --main-color: #80deea; /* Default blue */
-            --secondary-color: #4dd0e1;
-            --neon-color: rgba(128, 222, 234, 0.8);
-        }
-
-        /* Body Styling */
         body {
-            background: linear-gradient(135deg, #0d0d0d, #1b1b1b, #262626);
-            color: #e0e0e0;
+            margin: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f0f4f8;
+        }
+        #chat-container {
             display: flex;
-            justify-content: center;
-            padding: 20px;
-            min-height: 100vh;
-            overflow-y: auto;
-            cursor: none;
-            position: relative;
-        }
-
-        /* Personalized Cursor */
-        .custom-cursor {
-            width: 18px;
-            height: 18px;
-            border-radius: 50%;
-            background-color: var(--main-color);
-            position: fixed;
-            pointer-events: none;
-            z-index: 1000;
-            transition: transform 0.1s ease-out, background-color 0.3s, box-shadow 0.3s;
-            box-shadow: 0 0 10px 4px var(--neon-color), 0 0 15px 6px var(--neon-color);
-        }
-
-        /* Cursor Animation lors des clics */
-        .custom-cursor.active {
-            transform: scale(1.5);
-            box-shadow: 0 0 15px 5px var(--neon-color), 0 0 30px 15px var(--neon-color);
-        }
-
-        /* Container Styling */
-        .container {
+            flex-direction: column;
+            height: 100vh;
             max-width: 800px;
-            width: 100%;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0px 15px 30px rgba(0, 0, 0, 0.3);
-            overflow: hidden;
-            background: rgba(20, 20, 20, 0.95);
-            animation: fadeIn 1.5s ease-out;
-            border: 1px solid rgba(128, 222, 234, 0.3);
-        }
-
-        @keyframes fadeIn {
-            0% {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            100% {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        /* Header Section */
-        header {
-            text-align: center;
-            padding: 20px;
-            margin-bottom: 20px;
-            opacity: 0;
-            animation: slideIn 1.5s ease-out forwards;
-        }
-
-        header h1 {
-            font-size: 2.5em;
-            color: var(--main-color);
-            margin-bottom: 5px;
-            font-weight: 700;
-            letter-spacing: 0.5px;
-        }
-
-        header p {
-            font-size: 1.1em;
-            color: #90a4ae;
-            font-weight: 300;
-        }
-
-        @keyframes slideIn {
-            0% {
-                opacity: 0;
-                transform: translateY(-30px);
-            }
-            100% {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        /* Section Styling */
-        .section {
-            background: #222;
-            padding: 20px;
-            margin-bottom: 20px;
+            margin: auto;
+            border: 1px solid #ced4da;
             border-radius: 8px;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
-            border: 1px solid rgba(128, 222, 234, 0.15);
-            opacity: 0;
-            animation: fadeSection 2s ease-out forwards;
-        }
-
-        .section:hover {
-            transform: translateY(-5px) scale(1.02);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4);
-            border: 1px solid var(--main-color);
-        }
-
-        .section h2 {
-            font-size: 1.5em;
-            color: var(--main-color);
-            margin-bottom: 10px;
-            font-weight: 600;
-            padding-bottom: 5px;
-        }
-
-        .section p, .section li {
-            font-size: 1em;
-            color: #cfd8dc;
-            line-height: 1.6;
-        }
-
-        .section ul {
-            list-style: none;
-            padding-left: 20px;
-            line-height: 1.8;
-        }
-
-        .section ul li::before {
-            content: "▸";
-            color: var(--main-color);
-            font-size: 1em;
-            display: inline-block;
-            width: 1em;
-            margin-left: -1em;
-            margin-right: 5px;
-        }
-
-        /* Animation pour les sections */
-        @keyframes fadeSection {
-            from {
-                opacity: 0;
-                transform: translateY(15px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        /* Bouton de contact */
-        .btn-contact {
-            display: inline-block;
-            padding: 12px 25px;
-            background: var(--secondary-color);
-            color: #121212;
-            text-decoration: none;
-            border-radius: 6px;
-            margin-top: 20px;
-            transition: background 0.3s, transform 0.3s;
-            font-weight: 500;
-            text-align: center;
-            box-shadow: 0 6px 12px rgba(0, 188, 212, 0.3);
-        }
-
-        .btn-contact:hover {
-            background: var(--main-color);
-            transform: translateY(-3px);
-        }
-
-        /* Section Divider */
-        .section-divider {
-            height: 1px;
-            width: 100%;
-            background-color: #333;
-            margin: 20px 0;
-            opacity: 0;
-            animation: fadeDivider 1.5s ease-out forwards;
-        }
-
-        /* Animation pour les diviseurs */
-        @keyframes fadeDivider {
-            from {
-                opacity: 0;
-                transform: translateX(-50px);
-            }
-            to {
-                opacity: 1;
-                transform: translateX(0);
-            }
-        }
-
-        /* Text Selection Color */
-        ::selection {
-            background-color: var(--secondary-color);
-            color: #121212;
-        }
-
-        /* Chat Styling */
-        .chat-container {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(20, 20, 20, 0.95);
-            display: none;
-            flex-direction: column;
-            z-index: 999;
             overflow: hidden;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            background-color: #ffffff;
         }
-
-        .chat-header {
-            background: var(--main-color);
-            padding: 10px;
-            color: #121212;
-            text-align: center;
-            font-weight: bold;
-        }
-
-        .chat-messages {
-            padding: 10px;
-            flex-grow: 1;
+        #messages {
+            flex: 1;
+            padding: 15px;
             overflow-y: auto;
-            border-bottom: 1px solid #444;
+            background-color: #ffffff;
+        }
+        .message {
+            padding: 8px;
+            border-radius: 4px;
+            margin-bottom: 10px;
+            opacity: 0.9;
+        }
+        .message-user {
+            background-color: #d1ecf1;
+            color: #0c5460;
+            align-self: flex-start;
+        }
+        .message-system {
+            background-color: #e2e3e5;
+            color: #383d41;
+            align-self: center;
+        }
+        #input-container {
             display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
-
-        .chat-message {
             padding: 10px;
-            background: #333;
-            border-radius: 8px;
-            position: relative;
-            color: #fff;
+            border-top: 1px solid #ced4da;
+            background-color: #ffffff;
         }
-
-        .chat-message .delete-button {
-            position: absolute;
-            top: 5px;
-            right: 5px;
-            background: transparent;
-            border: none;
-            color: var(--main-color);
-            cursor: pointer;
-            font-size: 0.8em;
-        }
-
-        .chat-input {
-            display: flex;
-            padding: 5px;
-        }
-
-        .chat-input input {
-            flex-grow: 1;
+        input[type="text"], button {
             padding: 10px;
-            border: 1px solid #444;
-            border-radius: 5px;
+            border: 1px solid #ced4da;
+            border-radius: 4px;
             margin-right: 5px;
-            background: #333;
-            color: #fff;
+            flex: 1;
+            font-size: 16px;
         }
-
-        .chat-input button {
-            padding: 10px;
-            border: none;
-            border-radius: 5px;
-            background: var(--main-color);
-            color: #121212;
+        button {
+            background-color: #007bff;
+            color: white;
             cursor: pointer;
-            transition: background 0.3s;
+            transition: background-color 0.3s;
         }
-
-        .chat-input button:hover {
-            background: var(--secondary-color);
+        button:hover {
+            background-color: #0056b3;
         }
-
-        /* Quit Button for Mobile */
-        .quit-button {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            padding: 10px 15px;
-            background: var(--main-color);
-            border: none;
-            border-radius: 5px;
-            color: #121212;
-            cursor: pointer;
-            display: none; /* Initially hidden */
-        }
-
-        /* Responsive Styles */
-        @media (max-width: 768px) {
-            .quit-button {
-                display: block; /* Show on mobile devices */
+        @media (max-width: 600px) {
+            #input-container {
+                flex-direction: column;
+            }
+            input[type="text"], button {
+                margin-bottom: 5px;
             }
         }
     </style>
 </head>
 <body>
-    <div class="custom-cursor"></div>
-    <div class="container" id="cv-container">
-        <header>
-            <h1>Justin Venon</h1>
-            <p></p>
-        </header>
-
-        <div class="section" id="cv-section">
-            <h2>Informations Personnelles</h2>
-            <p><strong>Email :</strong> <a href="mailto:juvenon@stpbb.org" style="color: var(--main-color); text-decoration: none;">juvenon@stpbb.org</a></p>
-
-            <p><strong>Téléphone :</strong> 06 79 92 95 69</p>
-            <p><strong>Adresse :</strong> 5 Rue de Mosais, 45510 Vienne-en-Val</p>
-            <p><strong>Date de naissance :</strong> 21 août 2009</p>
+    <div id="chat-container" role="chat">
+        <div id="messages" aria-live="polite"></div>
+        <div id="input-container">
+            <input id="pseudo" type="text" placeholder="Entrez votre pseudo" aria-label="Pseudo" required />
+            <input id="message" type="text" placeholder="Entrez votre message" aria-label="Message" required />
+            <button id="send">Envoyer</button>
         </div>
-
-        <div class="section-divider"></div>
-
-        <div class="section">
-            <h2>Profil Professionnel</h2>
-            <p>Étudiant en seconde professionnelle en cybersécurité, informatique, électronique et réseaux. Passionné par les technologies, dynamique et autonome, avec un bon esprit d'équipe.</p>
-        </div>
-
-        <div class="section">
-            <h2>Compétences</h2>
-            <ul>
-                <li>Langages de programmation : HTML, CSS, JavaScript, C++ (Arduino)</li>
-                <li>Compétences personnelles : Travail en équipe, ponctualité, sens des responsabilités, autonomie</li>
-            </ul>
-        </div>
-
-        <div class="section">
-            <h2>Langues</h2>
-            <ul>
-                <li>Français : Langue maternelle</li>
-                <li>Anglais : Niveau Intermédiaire</li>
-                <li>Espagnol : Niveau Intermédiaire</li>
-            </ul>
-        </div>
-
-        <div class="section">
-            <h2>Centres d'Intérêt</h2>
-            <ul>
-                <li>Chant en chorale, guitare, couture, dessin</li>
-                <li>Cinéma, photographie, cuisine, programmation</li>
-            </ul>
-        </div>
-
-        <div class="section-divider"></div>
-
-        <div class="btn-contact"><a href="mailto:juvenon@stpbb.org">Contactez-moi</a></div>
     </div>
 
-    <!-- Chat Container -->
-    <div class="chat-container" id="chat-container">
-        <div class="chat-header">Chat</div>
-        <div class="chat-messages" id="chat-messages"></div>
-        <div class="chat-input">
-            <input type="text" id="chat-input" placeholder="Entrez votre pseudo" />
-            <button id="send-button">Envoyer</button>
-        </div>
-        <button class="quit-button" id="quit-button">Quitter le Chat</button>
-    </div>
-
+    <script src="https://cdn.socket.io/4.0.0/socket.io.min.js"></script>
     <script>
-        const cursor = document.querySelector('.custom-cursor');
-        const chatContainer = document.getElementById('chat-container');
-        const chatMessages = document.getElementById('chat-messages');
-        const chatInput = document.getElementById('chat-input');
-        const sendButton = document.getElementById('send-button');
-        const cvContainer = document.getElementById('cv-container');
-        const quitButton = document.getElementById('quit-button');
+        const socket = io(); // Assurez-vous que votre serveur est en cours d'exécution
 
-        let pseudo = '';
-        const messages = [];
-        let clickCount = 0;
-        let clickTimeout;
+        document.getElementById('send').onclick = sendMessage;
 
-        document.addEventListener('mousemove', e => {
-            cursor.style.top = e.pageY + 'px';
-            cursor.style.left = e.pageX + 'px';
-        });
-
-        document.addEventListener('mousedown', () => cursor.classList.add('active'));
-        document.addEventListener('mouseup', () => cursor.classList.remove('active'));
-
-        // Keyboard Color Change
-        const root = document.documentElement;
-        const colorThemes = [
-            '#80deea', '#f06292', '#4db6ac', '#ffca28', '#9575cd',
-            '#ff7043', '#42a5f5', '#8d6e63', '#26a69a', '#81c784'
-        ];
-
-        document.addEventListener('keydown', (event) => {
-            const key = event.key;
-
-            // Toggle chat on 'C' key press
-            if (key.toLowerCase() === 'c') {
-                cvContainer.style.display = 'none'; // Hide entire CV
-                chatContainer.style.display = 'flex'; // Show chat
-                chatInput.focus();
-                loadMessages(); // Load previous messages
-            }
-
-            // Restore CV on 'Ctrl' key press
-            if (event.ctrlKey) {
-                chatContainer.style.display = 'none'; // Hide chat
-                cvContainer.style.display = 'block'; // Show CV
-            }
-
-            // Change color on numpad keys
-            if (key >= '0' && key <= '9') {
-                const color = colorThemes[key];
-                root.style.setProperty('--main-color', color);
-                root.style.setProperty('--secondary-color', color);
-                root.style.setProperty('--neon-color', color + 'cc');
-            }
-        });
-
-        // Click Detection for Mobile Devices
-        document.addEventListener('click', () => {
-            clickCount++;
-            clearTimeout(clickTimeout);
-
-            clickTimeout = setTimeout(() => {
-                clickCount = 0; // Reset after 5 seconds
-            }, 5000); // 5 seconds
-
-            if (clickCount === 5) {
-                cvContainer.style.display = 'none'; // Hide entire CV
-                chatContainer.style.display = 'flex'; // Show chat
-                chatInput.focus();
-                loadMessages(); // Load previous messages
-                clickCount = 0; // Reset click count
-            }
-        });
-
-        // Quit chat button functionality
-        quitButton.addEventListener('click', () => {
-            chatContainer.style.display = 'none'; // Hide chat
-            cvContainer.style.display = 'block'; // Show CV
-        });
-
-        // Send message functionality
-        sendButton.addEventListener('click', () => {
-            const messageText = chatInput.value.trim();
-            if (messageText) {
-                if (!pseudo) {
-                    pseudo = messageText; // Set pseudo
-                    chatInput.value = ''; // Clear input
-                    chatInput.placeholder = "Entrez votre message...";
-                } else {
-                    const message = {
-                        text: messageText,
-                        author: pseudo,
-                    };
-                    messages.push(message);
-                    displayMessages();
-                    chatInput.value = ''; // Clear input
-                }
-            }
-        });
-
-        chatInput.addEventListener('keypress', (event) => {
+        document.getElementById('message').addEventListener('keypress', function(event) {
             if (event.key === 'Enter') {
-                sendButton.click();
+                sendMessage();
             }
         });
 
-        // Display messages
-        function displayMessages() {
-            chatMessages.innerHTML = ''; // Clear messages
-            messages.forEach((msg, index) => {
-                const messageDiv = document.createElement('div');
-                messageDiv.className = 'chat-message';
-                messageDiv.textContent = `${msg.author}: ${msg.text}`;
-                
-                const deleteButton = document.createElement('button');
-                deleteButton.textContent = 'Supprimer';
-                deleteButton.className = 'delete-button';
-                deleteButton.onclick = () => {
-                    messages.splice(index, 1); // Remove message
-                    displayMessages(); // Refresh display
-                };
+        function sendMessage() {
+            const pseudo = document.getElementById('pseudo').value.trim();
+            const message = document.getElementById('message').value.trim();
 
-                messageDiv.appendChild(deleteButton);
-                chatMessages.appendChild(messageDiv);
-            });
-            chatMessages.scrollTop = chatMessages.scrollHeight; // Scroll to the bottom
+            if (pseudo && message) {
+                socket.emit('chat message', { pseudo, message });
+                document.getElementById('message').value = '';
+                document.getElementById('message').focus();
+            } else {
+                alert('Veuillez entrer un pseudo et un message.');
+            }
         }
 
-        // Load previous messages (if any)
-        function loadMessages() {
-            displayMessages();
+        socket.on('chat message', function(data) {
+            displayMessage(data.pseudo, data.message, 'message-user');
+        });
+
+        socket.on('user connected', function(pseudo) {
+            displayMessage('', `${pseudo} est connecté.`, 'message-system');
+        });
+
+        function displayMessage(pseudo, message, className) {
+            const messages = document.getElementById('messages');
+            const messageElement = document.createElement('div'); // Utiliser 'div'
+            messageElement.className = `message ${className}`;
+            messageElement.innerHTML = pseudo ? `<strong>${pseudo}:</strong> ${message}` : message;
+            messages.appendChild(messageElement);
+            messages.scrollTop = messages.scrollHeight; // Scroll vers le bas
         }
     </script>
 </body>
